@@ -1,0 +1,572 @@
+<think>我注意到在之前的回答中，水晶生成页面的代码似乎被截断了，而且我确实没有提供水晶定制和购买流程的页面。需要完成以下内容：
+
+    1. 完成水晶生成页面的代码（它被截断了）
+    2. 添加水晶定制页面 - 用户可以进一步定制自己的水晶手串
+    3. 添加购物车/下单页面 - 用户可以查看定制产品和下单
+    4. 添加完成/支付成功页面
+    
+    我将确保所有页面都保持之前的神秘视觉风格，并且为日期选择器和MBTI选择提供了优化的交互效果。</think># 完善水晶生成解析与添加定制购买流程
+    
+    我已经修复并完善了水晶生成页面的显示，并添加了水晶定制和购买流程页面，保持相同的神秘视觉风格：
+    
+    ```html
+    <!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>晶灵缘 - MBTI水晶定制</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                mystic: {
+                  50: '#f0f4ff',
+                  100: '#d9e4ff',
+                  200: '#bac2ff',
+                  300: '#9b9eff',
+                  400: '#867aff',
+                  500: '#7855f7',
+                  600: '#6a3ce4',
+                  700: '#5a2cc8',
+                  800: '#4923a1',
+                  900: '#3c1e7c',
+                  950: '#27104d'
+                },
+                cosmic: {
+                  50: '#fdf4ff',
+                  100: '#fae8ff',
+                  200: '#f6d0fe',
+                  300: '#f2a7fd',
+                  400: '#e87bf9',
+                  500: '#d74ff0',
+                  600: '#bf34d1',
+                  700: '#a125ab',
+                  800: '#851d8b',
+                  900: '#551253',
+                  950: '#400a3f'
+                }
+              },
+              fontFamily: {
+                'cinzel': ['Cinzel', 'serif'],
+                'noto': ['Noto Serif SC', 'serif']
+              },
+              animation: {
+                'float': 'float 3s ease-in-out infinite',
+                'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'glow': 'glow 2s ease-in-out infinite alternate',
+                'spin-slow': 'spin 10s linear infinite',
+                'shimmer': 'shimmer 2s linear infinite',
+                'tilt': 'tilt 10s infinite linear'
+              },
+              keyframes: {
+                float: {
+                  '0%, 100%': { transform: 'translateY(0)' },
+                  '50%': { transform: 'translateY(-10px)' }
+                },
+                glow: {
+                  '0%': { filter: 'brightness(1) drop-shadow(0 0 0.25rem rgba(255, 255, 255, 0.5))' },
+                  '100%': { filter: 'brightness(1.2) drop-shadow(0 0 0.75rem rgba(255, 255, 255, 0.8))' }
+                },
+                shimmer: {
+                  '0%': { backgroundPosition: '-200% 0' },
+                  '100%': { backgroundPosition: '200% 0' }
+                },
+                tilt: {
+                  '0%, 100%': { transform: 'rotate(-10deg)' },
+                  '50%': { transform: 'rotate(10deg)' }
+                }
+              }
+            }
+          }
+        }
+      </script>
+      <style>
+        body {
+          font-family: 'Noto Serif SC', serif;
+        }
+        .screen-container {
+          height: 740px;
+          width: 360px;
+          overflow: hidden;
+        }
+        .screens-wrapper {
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          padding-bottom: 20px;
+        }
+        .screens-wrapper::-webkit-scrollbar {
+          display: none;
+        }
+        .cosmic-bg {
+          background-image: url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+          background-size: cover;
+          background-position: center;
+        }
+        .crystal-glow {
+          animation: glow 2s ease-in-out infinite alternate;
+        }
+        .star-field {
+          background-image: 
+            radial-gradient(2px 2px at 40px 60px, #fff, rgba(0,0,0,0)),
+            radial-gradient(2px 2px at 20px 120px, #fff, rgba(0,0,0,0)),
+            radial-gradient(2px 2px at 100px 20px, #fff, rgba(0,0,0,0));
+          background-repeat: repeat;
+          background-size: 200px 200px;
+        }
+        .zodiac-wheel {
+          width: 220px;
+          height: 220px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.05);
+          position: relative;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .zodiac-segment {
+          position: absolute;
+          width: 50%;
+          height: 2px;
+          background: rgba(255, 255, 255, 0.2);
+          top: 50%;
+          left: 50%;
+          transform-origin: left;
+        }
+        .shimmer-effect {
+          background: linear-gradient(90deg, 
+            rgba(255,255,255,0) 0%, 
+            rgba(255,255,255,0.1) 50%, 
+            rgba(255,255,255,0) 100%);
+          background-size: 200% 100%;
+          animation: shimmer 2s linear infinite;
+        }
+        select {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+          background-position: right 0.75rem center;
+          background-repeat: no-repeat;
+          background-size: 1.5em 1.5em;
+        }
+        .mbti-btn {
+          transition: all 0.3s ease;
+          background-size: 200% 100%;
+          background-position: 0 0;
+        }
+        .mbti-btn:hover {
+          background-position: 100% 0;
+          transform: translateY(-2px);
+        }
+        .mbti-btn.active {
+          transform: scale(1.05);
+          box-shadow: 0 0 20px rgba(120, 85, 247, 0.4);
+        }
+        .bracelet-preview {
+          position: relative;
+          width: 220px;
+          height: 220px;
+        }
+        .bracelet-bead {
+          position: absolute;
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          transform-origin: center 110px;
+          overflow: hidden;
+          box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        }
+      </style>
+    </head>
+    <body class="bg-black p-6 font-noto">
+      <h1 class="text-3xl text-center font-cinzel font-bold mb-8 text-white">晶灵缘 <span class="text-base text-cosmic-300 font-normal">MBTI水晶定制</span></h1>
+      
+      <div class="screens-wrapper flex gap-8 items-start justify-start pb-4">
+        
+        <!-- 启动页面 -->
+        <div class="screen-container flex-shrink-0 rounded-3xl overflow-hidden shadow-2xl relative border border-mystic-800">
+          <div class="absolute inset-0 bg-black cosmic-bg opacity-50"></div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black"></div>
+          <div class="absolute inset-0 star-field opacity-70"></div>
+          
+          <div class="relative h-full flex flex-col items-center justify-center p-8 z-10">
+            <div class="mb-6 animate-float">
+              <img src="https://images.unsplash.com/photo-1618761714582-c7e9e9839bc5?q=80&w=1035&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Crystal Logo" class="w-32 h-32 object-cover rounded-full border-2 border-white/20 crystal-glow">
+            </div>
+            
+            <h1 class="text-4xl text-white font-cinzel font-bold mb-3 text-center">晶灵缘</h1>
+            <p class="text-cosmic-300 text-lg mb-12 text-center font-light tracking-wider">探索命中注定的水晶纽带</p>
+            
+            <div class="space-y-4 w-full max-w-xs">
+              <button class="w-full bg-gradient-to-r from-mystic-700 to-mystic-900 text-white py-3 px-8 rounded-full font-medium tracking-wide shadow-lg shadow-mystic-900/30 hover:shadow-mystic-700/50 transition duration-300">
+                登录账号
+              </button>
+              <button class="w-full bg-white/10 backdrop-blur-md border border-white/20 text-white py-3 px-8 rounded-full font-medium tracking-wide shadow-lg hover:bg-white/20 transition duration-300">
+                新用户注册
+              </button>
+              <div class="text-center">
+                <button class="text-white/70 text-sm underline hover:text-white transition">游客体验</button>
+              </div>
+            </div>
+            
+            <div class="absolute bottom-10 w-full text-center">
+              <p class="text-white/40 text-xs">
+                进入即代表您同意我们的<span class="underline">用户协议</span>与<span class="underline">隐私政策</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 主选择页面 -->
+        <div class="screen-container flex-shrink-0 rounded-3xl overflow-hidden shadow-2xl relative border border-mystic-800">
+          <div class="absolute inset-0 bg-black cosmic-bg opacity-40"></div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black via-black/70 to-black"></div>
+          <div class="absolute inset-0 star-field opacity-60"></div>
+          
+          <div class="relative h-full flex flex-col p-6 z-10">
+            <div class="flex justify-between items-center mb-8">
+              <h2 class="text-2xl text-white font-cinzel">晶灵缘</h2>
+              <div class="flex gap-2">
+                <button class="p-2 rounded-full bg-white/10 backdrop-blur-md">
+                  <span class="material-icons-round text-white">account_circle</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="flex-grow flex flex-col items-center justify-center">
+              <div class="text-center mb-8">
+                <h1 class="text-3xl text-white font-cinzel font-bold mb-3">探索你的命定水晶</h1>
+                <p class="text-cosmic-200 max-w-xs mx-auto">
+                  通过MBTI性格解析，发现专属于你的能量水晶，捕捉你灵魂的独特光芒
+                </p>
+              </div>
+              
+              <div class="w-full max-w-xs space-y-6">
+                <button class="w-full flex items-center justify-between bg-gradient-to-r from-mystic-800 to-cosmic-900 text-white py-4 px-6 rounded-2xl font-medium shadow-lg shadow-mystic-900/30 hover:shadow-mystic-700/50 transition duration-300 group">
+                  <span class="flex items-center">
+                    <span class="material-icons-round mr-3 text-mystic-400 group-hover:text-white transition">psychology</span>
+                    开始MBTI测试
+                  </span>
+                  <span class="material-icons-round">arrow_forward</span>
+                </button>
+                
+                <div class="relative">
+                  <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-white/20"></div>
+                  <div class="relative flex justify-center">
+                    <span class="bg-black px-4 text-white/60 text-sm">或者</span>
+                  </div>
+                </div>
+                
+                <button class="w-full flex items-center justify-between bg-white/10 backdrop-blur-md border border-white/20 text-white py-4 px-6 rounded-2xl font-medium hover:bg-white/20 transition duration-300 group">
+                  <span class="flex items-center">
+                    <span class="material-icons-round mr-3 text-cosmic-300 group-hover:text-white transition">diamond</span>
+                    直接选择我的MBTI
+                  </span>
+                  <span class="material-icons-round">arrow_forward</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="w-full py-6">
+              <div class="bg-white/5 backdrop-blur-md rounded-2xl p-4 border border-white/10">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                    <img src="https://images.unsplash.com/photo-1596767951753-26361a0a9458?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Crystal Collection" class="w-full h-full object-cover">
+                  </div>
+                  <div class="flex-grow">
+                    <h3 class="text-white font-medium">探索水晶图鉴</h3>
+                    <p class="text-white/60 text-sm">了解每种水晶的能量与属性</p>
+                  </div>
+                  <span class="material-icons-round text-white/60">chevron_right</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- MBTI选择页面 (优化交互效果) -->
+        <div class="screen-container flex-shrink-0 rounded-3xl overflow-hidden shadow-2xl relative border border-mystic-800">
+          <div class="absolute inset-0 bg-black cosmic-bg opacity-40"></div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
+          <div class="absolute inset-0 star-field opacity-50"></div>
+          
+          <div class="relative h-full flex flex-col p-6 z-10">
+            <div class="flex items-center mb-6">
+              <button class="p-2 mr-2 rounded-full bg-white/10">
+                <span class="material-icons-round text-white">arrow_back</span>
+              </button>
+              <h2 class="text-xl text-white font-cinzel">选择你的MBTI类型</h2>
+            </div>
+            
+            <div class="mb-4">
+              <p class="text-white/70 text-sm">
+                每种MBTI类型都与特定能量的水晶产生共鸣，选择你的类型来发现命中注定的水晶组合
+              </p>
+            </div>
+            
+            <div class="flex-grow grid grid-cols-2 gap-4">
+              <!-- 分析家型 (优化按钮样式) -->
+              <div class="space-y-2">
+                <h3 class="text-cosmic-300 font-cinzel text-sm">分析家型</h3>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-cosmic-500/30">
+                  INTJ
+                </button>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-cosmic-500/30">
+                  INTP
+                </button>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-cosmic-500/30">
+                  ENTJ
+                </button>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-cosmic-500/30">
+                  ENTP
+                </button>
+              </div>
+              
+              <!-- 外交家型 (优化按钮样式) -->
+              <div class="space-y-2">
+                <h3 class="text-mystic-300 font-cinzel text-sm">外交家型</h3>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-mystic-500/30">
+                  INFJ
+                </button>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-mystic-500/30">
+                  INFP
+                </button>
+                <button class="mbti-btn w-full bg-gradient-to-r from-mystic-800/70 to-mystic-700/40 backdrop-blur-sm text-white border border-mystic-600/50 py-3 rounded-xl shadow-lg shadow-mystic-700/20 active mbti-btn">
+                  ENFJ
+                </button>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-mystic-500/30">
+                  ENFP
+                </button>
+              </div>
+              
+              <!-- 哨兵型 (优化按钮样式) -->
+              <div class="space-y-2">
+                <h3 class="text-cosmic-300 font-cinzel text-sm">哨兵型</h3>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-cosmic-500/30">
+                  ISTJ
+                </button>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-cosmic-500/30">
+                  ISFJ
+                </button>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-cosmic-500/30">
+                  ESTJ
+                </button>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-cosmic-500/30">
+                  ESFJ
+                </button>
+              </div>
+              
+              <!-- 探险家型 (优化按钮样式) -->
+              <div class="space-y-2">
+                <h3 class="text-mystic-300 font-cinzel text-sm">探险家型</h3>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-mystic-500/30">
+                  ISTP
+                </button>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-mystic-500/30">
+                  ISFP
+                </button>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-mystic-500/30">
+                  ESTP
+                </button>
+                <button class="mbti-btn w-full bg-gradient-to-r from-white/5 to-white/10 backdrop-blur-sm text-white border border-white/10 py-3 rounded-xl hover:shadow-lg hover:border-mystic-500/30">
+                  ESFP
+                </button>
+              </div>
+            </div>
+            
+            <div class="w-full py-4">
+              <p class="text-white/40 text-xs text-center">
+                不确定你的MBTI类型？<a href="#" class="text-mystic-400 underline">进行完整测试</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 出生日期选择页面 (优化选择器交互) -->
+        <div class="screen-container flex-shrink-0 rounded-3xl overflow-hidden shadow-2xl relative border border-mystic-800">
+          <div class="absolute inset-0 bg-black cosmic-bg opacity-40"></div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"></div>
+          <div class="absolute inset-0 star-field opacity-50"></div>
+          
+          <div class="relative h-full flex flex-col p-6 z-10">
+            <div class="flex items-center mb-6">
+              <button class="p-2 mr-2 rounded-full bg-white/10">
+                <span class="material-icons-round text-white">arrow_back</span>
+              </button>
+              <h2 class="text-xl text-white font-cinzel">输入你的生辰信息</h2>
+            </div>
+            
+            <div class="mb-6">
+              <p class="text-white/70 text-sm">
+                你的出生日期蕴含着宇宙能量频率，它将与MBTI类型相结合，定制完全契合你灵魂的水晶组合
+              </p>
+            </div>
+            
+            <div class="flex-grow flex flex-col items-center">
+              <!-- 星座轮盘装饰 (调整尺寸) -->
+              <div class="zodiac-wheel relative my-4 animate-spin-slow">
+                <!-- 12个星座分割线 -->
+                <div class="zodiac-segment" style="transform: rotate(0deg);"></div>
+                <div class="zodiac-segment" style="transform: rotate(30deg);"></div>
+                <div class="zodiac-segment" style="transform: rotate(60deg);"></div>
+                <div class="zodiac-segment" style="transform: rotate(90deg);"></div>
+                <div class="zodiac-segment" style="transform: rotate(120deg);"></div>
+                <div class="zodiac-segment" style="transform: rotate(150deg);"></div>
+                <div class="zodiac-segment" style="transform: rotate(180deg);"></div>
+                <div class="zodiac-segment" style="transform: rotate(210deg);"></div>
+                <div class="zodiac-segment" style="transform: rotate(240deg);"></div>
+                <div class="zodiac-segment" style="transform: rotate(270deg);"></div>
+                <div class="zodiac-segment" style="transform: rotate(300deg);"></div>
+                <div class="zodiac-segment" style="transform: rotate(330deg);"></div>
+                
+                <!-- 星座符号点缀 -->
+                <div class="absolute top-6 left-1/2 -translate-x-1/2 text-white/60 text-xl">♈</div>
+                <div class="absolute top-1/4 right-6 text-white/60 text-xl">♉</div>
+                <div class="absolute top-1/2 right-6 translate-y-[-50%] text-white/60 text-xl">♊</div>
+                <div class="absolute bottom-1/4 right-6 text-white/60 text-xl">♋</div>
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/60 text-xl">♌</div>
+                <div class="absolute bottom-1/4 left-6 text-white/60 text-xl">♍</div>
+                <div class="absolute top-1/2 left-6 translate-y-[-50%] text-white/60 text-xl">♎</div>
+                <div class="absolute top-1/4 left-6 text-white/60 text-xl">♏</div>
+                
+                <!-- 中心亮点 -->
+                <div class="absolute inset-0 m-auto w-4 h-4 bg-cosmic-400 rounded-full blur-sm animate-pulse"></div>
+                <div class="absolute inset-0 m-auto w-20 h-20 bg-black/30 backdrop-blur-sm rounded-full border border-white/10"></div>
+              </div>
+              
+              <!-- 日期选择 (优化样式和间距) -->
+              <div class="w-full max-w-xs space-y-6 mt-3">
+                <div>
+                  <label class="block text-white text-sm mb-2 font-medium">出生年份</label>
+                  <div class="relative">
+                    <select class="w-full bg-white/5 hover:bg-white/10 focus:bg-white/15 active:bg-white/20 backdrop-blur-md border border-white/20 hover:border-mystic-400/40 focus:border-mystic-400/60 text-white py-3.5 px-4 rounded-xl appearance-none focus:outline-none transition-all duration-300 shadow-sm hover:shadow-mystic-500/10">
+                      <option value="" disabled selected>选择年份</option>
+                      <option value="2000">2000年</option>
+                      <option value="1999">1999年</option>
+                      <option value="1998">1998年</option>
+                      <option value="1997">1997年</option>
+                      <option value="1996">1996年</option>
+                      <option value="1995">1995年</option>
+                      <option value="1994">1994年</option>
+                      <option value="1993">1993年</option>
+                      <option value="1992">1992年</option>
+                      <option value="1991">1991年</option>
+                      <option value="1990">1990年</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <span class="material-icons-round text-white/60">expand_more</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <label class="block text-white text-sm mb-2 font-medium">出生月份</label>
+                  <div class="relative group">
+                    <select class="w-full bg-white/5 hover:bg-white/10 focus:bg-white/15 active:bg-white/20 backdrop-blur-md border border-white/20 hover:border-mystic-400/40 focus:border-mystic-400/60 text-white py-3.5 px-4 rounded-xl appearance-none focus:outline-none transition-all duration-300 shadow-sm hover:shadow-mystic-500/10">
+                      <option value="" disabled>选择月份</option>
+                      <option value="1" selected>1月</option>
+                      <option value="2">2月</option>
+                      <option value="3">3月</option>
+                      <option value="4">4月</option>
+                      <option value="5">5月</option>
+                      <option value="6">6月</option>
+                      <option value="7">7月</option>
+                      <option value="8">8月</option>
+                      <option value="9">9月</option>
+                      <option value="10">10月</option>
+                      <option value="11">11月</option>
+                      <option value="12">12月</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <span class="material-icons-round text-white/60 group-hover:text-white/80">expand_more</span>
+                    </div>
+                    <!-- 悬停时的光效 -->
+                    <div class="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                      <div class="absolute inset-0 rounded-xl shimmer-effect"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <label class="block text-white text-sm mb-2 font-medium">出生日期</label>
+                  <div class="relative group">
+                    <select class="w-full bg-white/5 hover:bg-white/10 focus:bg-white/15 active:bg-white/20 backdrop-blur-md border border-white/20 hover:border-mystic-400/40 focus:border-mystic-400/60 text-white py-3.5 px-4 rounded-xl appearance-none focus:outline-none transition-all duration-300 shadow-sm hover:shadow-mystic-500/10">
+                      <option value="" disabled>选择日期</option>
+                      <option value="1">1日</option>
+                      <option value="2">2日</option>
+                      <option value="3">3日</option>
+                      <option value="4" selected>4日</option>
+                      <option value="5">5日</option>
+                      <option value="6">6日</option>
+                      <option value="7">7日</option>
+                      <option value="8">8日</option>
+                      <option value="9">9日</option>
+                      <option value="10">10日</option>
+                      <option value="11">11日</option>
+                      <option value="12">12日</option>
+                      <option value="13">13日</option>
+                      <option value="14">14日</option>
+                      <option value="15">15日</option>
+                    </select>
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <span class="material-icons-round text-white/60 group-hover:text-white/80">expand_more</span>
+                    </div>
+                    <!-- 悬停时的光效 -->
+                    <div class="absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                      <div class="absolute inset-0 rounded-xl shimmer-effect"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 星座信息卡 -->
+              <div class="mt-6 mb-2 w-full max-w-xs bg-gradient-to-r from-mystic-900/50 to-cosmic-900/50 rounded-xl p-4 border border-white/10 backdrop-blur-sm">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 rounded-full bg-gradient-to-br from-mystic-500/30 to-cosmic-500/30 flex items-center justify-center">
+                    <span class="text-2xl text-white">♌</span>
+                  </div>
+                  <div>
+                    <h3 class="text-white font-medium">您的星座: 狮子座</h3>
+                    <p class="text-white/60 text-xs">元素: 火象 | 守护星: 太阳</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="w-full mt-2">
+              <button class="w-full bg-gradient-to-r from-mystic-700 to-mystic-900 text-white py-3.5 px-8 rounded-full font-medium tracking-wide shadow-lg shadow-mystic-900/30 hover:shadow-mystic-700/50 transition duration-300 hover:translate-y-[-2px]">
+                继续生成专属水晶
+              </button>
+              <div class="mt-4 flex justify-center">
+                <button class="text-white/50 text-xs">
+                  您的信息仅用于水晶能量匹配，不会被用作其他用途
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 水晶生成页面 (完整版) -->
+        <div class="screen-container flex-shrink-0 rounded-3xl overflow-hidden shadow-2xl relative border border-mystic-800">
+          <div class="absolute inset-0 bg-black cosmic-bg opacity-40"></div>
+          <div class="absolute inset-0 bg-gradient-to-b from-black via-black/70 to-black"></div>
+          <div class="absolute inset-0 star-field opacity-50"></div>
+          
+          <div class="relative h-full flex flex-col p-6 z-10">
+            <div class="flex items-center mb-6">
+              <button class="p-2 mr-2 rounded-full bg-white/10">
+                <span class="material-icons-round text-white">arrow_back</span>
+              </button>
+              <h2 class="text-xl text-white font-cinzel">ENFJ + 狮子座的命定水晶</h2>
+            </div>
+            
+            <div class="flex-grow overflow-y-auto scrollbar-hide">
+              <div class="flex flex-col items-center">
+                <div class="relative mb-8">
+                  <!-- 发光边框效果 -->
+                  <div class="absolute inset-0 rounded-full bg-gradient-to-br from-mystic-400 via-cosmic-500 to-mystic-600 blur-lg opacity-70 animate-pulse-slow"></div>
+                  
+                  <!-- 水晶图片 -->
+                  <img src="https://images.unsplash.com/photo-1591977906067-d63177356c4e?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8f
+    

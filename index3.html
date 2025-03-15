@@ -1,0 +1,968 @@
+
+    
+    ```html
+    <!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>心伴 - 你的专属情感陪伴</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+      <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                primary: {
+                  50: '#F0F7FF',
+                  100: '#E0EFFF',
+                  200: '#B9DEFE',
+                  300: '#7CC2FD',
+                  400: '#36A9FC',
+                  500: '#0D99FF',
+                  600: '#0077E6',
+                  700: '#005BB0',
+                  800: '#00407C',
+                  900: '#002647'
+                },
+                secondary: {
+                  50: '#FFF0FB',
+                  100: '#FFE5F8',
+                  200: '#FFB8EB',
+                  300: '#FF8ADD',
+                  400: '#FF5CCF',
+                  500: '#FF2EC0',
+                  600: '#FF00AC',
+                  700: '#CC0089',
+                  800: '#990067',
+                  900: '#660044'
+                },
+                neutral: {
+                  50: '#F8FAFC',
+                  100: '#F1F5F9',
+                  200: '#E2E8F0',
+                  300: '#CBD5E1',
+                  400: '#94A3B8',
+                  500: '#64748B',
+                  600: '#475569',
+                  700: '#334155',
+                  800: '#1E293B',
+                  900: '#0F172A'
+                }
+              },
+              fontFamily: {
+                sans: ['Noto Sans SC', 'sans-serif']
+              }
+            }
+          }
+        }
+      </script>
+      <style>
+        body {
+          font-family: 'Noto Sans SC', sans-serif;
+        }
+        .screen-container {
+          max-height: 740px;
+          overflow: hidden;
+        }
+        /* 让页面横向滚动 */
+        .screens-wrapper {
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          padding-bottom: 20px;
+        }
+        /* 隐藏滚动条但保留功能 */
+        .screens-wrapper::-webkit-scrollbar {
+          height: 0;
+          background: transparent;
+        }
+      </style>
+    </head>
+    <body class="bg-gray-100 p-6 font-sans">
+      <h1 class="text-3xl text-center font-bold mb-8 text-neutral-800">心伴 - 陪伴类APP设计</h1>
+      
+      <div class="screens-wrapper flex gap-8 items-start justify-start pb-4">
+        
+        <!-- 登录页面 -->
+        <div class="w-80 flex-shrink-0 rounded-3xl overflow-hidden shadow-xl bg-white relative flex flex-col screen-container border border-gray-200">
+          <div class="bg-gradient-to-br from-primary-400 to-secondary-400 h-full w-full flex flex-col">
+            <div class="flex-grow flex flex-col items-center justify-center px-6 py-10 text-center">
+              <div class="w-32 h-32 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center mb-8">
+                <span class="material-icons-round text-6xl text-white">favorite</span>
+              </div>
+              <h1 class="text-3xl font-bold text-white mb-2">心伴</h1>
+              <p class="text-white/80 mb-12">总有一颗心，愿意倾听你</p>
+              <button class="w-full bg-white text-primary-500 font-semibold py-3 px-6 rounded-full mb-4 shadow-lg">
+                开始使用
+              </button>
+              <button class="w-full bg-white/20 backdrop-blur-md text-white font-semibold py-3 px-6 rounded-full mb-4">
+                登录账号
+              </button>
+              <p class="text-white/60 text-sm mt-4">
+                继续使用表示您同意<br>
+                <span class="underline">用户协议</span>与<span class="underline">隐私政策</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 主页/仪表盘 -->
+        <div class="w-80 flex-shrink-0 rounded-3xl overflow-hidden shadow-xl bg-white relative flex flex-col screen-container border border-gray-200">
+          <div class="h-full w-full flex flex-col">
+            <!-- 顶部导航 -->
+            <div class="p-6 flex items-center justify-between bg-white">
+              <div class="flex items-center">
+                <h2 class="text-lg font-medium text-neutral-800">你好，安妮</h2>
+              </div>
+              <div class="flex items-center gap-2">
+                <button class="p-2 rounded-full bg-neutral-100">
+                  <span class="material-icons-round text-neutral-500">notifications</span>
+                </button>
+                <div class="w-8 h-8 rounded-full bg-neutral-200 overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" class="w-full h-full object-cover">
+                </div>
+              </div>
+            </div>
+            
+            <!-- 情绪卡片 -->
+            <div class="px-6">
+              <div class="bg-gradient-to-r from-primary-400 to-primary-500 rounded-2xl p-5 mb-6 text-white">
+                <div class="flex justify-between items-center mb-3">
+                  <h3 class="font-medium">今日情绪</h3>
+                  <span class="text-sm bg-white/20 rounded-full px-3 py-0.5">2023.6.18</span>
+                </div>
+                <div class="flex items-center mb-4">
+                  <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
+                    <span class="material-icons-round text-white text-2xl">sentiment_satisfied</span>
+                  </div>
+                  <div>
+                    <h4 class="text-lg font-medium">平静</h4>
+                    <p class="text-sm text-white/70">比昨天的情绪有所好转</p>
+                  </div>
+                </div>
+                <button class="bg-white/20 text-white text-sm py-2 px-4 rounded-full">
+                  记录今日心情
+                </button>
+              </div>
+            </div>
+            
+            <!-- 主内容区域 -->
+            <div class="flex-grow px-6 py-2 overflow-hidden">
+              <!-- 虚拟陪伴 -->
+              <h3 class="text-sm font-medium text-neutral-500 mb-3">我的伙伴</h3>
+              <div class="bg-white shadow-sm border border-neutral-100 rounded-xl p-4 mb-6 flex items-center">
+                <div class="w-16 h-16 rounded-full bg-primary-100 overflow-hidden mr-4 flex-shrink-0">
+                  <img src="https://images.unsplash.com/photo-1608889476561-6242cfdbf622?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-grow">
+                  <div class="flex justify-between items-center">
+                    <h3 class="font-medium text-neutral-800">小蓝</h3>
+                    <span class="bg-primary-100 text-primary-500 text-xs px-2 py-0.5 rounded-full">Lv.5</span>
+                  </div>
+                  <p class="text-sm text-neutral-500 mb-2">你今天有什么想和我分享的吗？</p>
+                  <div class="flex justify-between items-center">
+                    <div class="text-xs text-neutral-400">亲密度: 72%</div>
+                    <button class="bg-primary-500 text-white text-sm py-1 px-4 rounded-full">
+                      聊天
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- 功能快捷入口 -->
+              <h3 class="text-sm font-medium text-neutral-500 mb-3">今日推荐</h3>
+              <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="bg-white shadow-sm border border-neutral-100 rounded-xl p-4 flex flex-col items-center justify-center">
+                  <div class="w-12 h-12 rounded-full bg-secondary-100 flex items-center justify-center mb-2">
+                    <span class="material-icons-round text-secondary-500">nightlight</span>
+                  </div>
+                  <h4 class="text-sm font-medium text-neutral-800">助眠故事</h4>
+                  <p class="text-xs text-neutral-500">解压放松好助眠</p>
+                </div>
+                
+                <div class="bg-white shadow-sm border border-neutral-100 rounded-xl p-4 flex flex-col items-center justify-center">
+                  <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center mb-2">
+                    <span class="material-icons-round text-primary-500">psychology</span>
+                  </div>
+                  <h4 class="text-sm font-medium text-neutral-800">心理测试</h4>
+                  <p class="text-xs text-neutral-500">了解真实的自己</p>
+                </div>
+                
+                <div class="bg-white shadow-sm border border-neutral-100 rounded-xl p-4 flex flex-col items-center justify-center">
+                  <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center mb-2">
+                    <span class="material-icons-round text-primary-500">edit_note</span>
+                  </div>
+                  <h4 class="text-sm font-medium text-neutral-800">情绪日记</h4>
+                  <p class="text-xs text-neutral-500">记录每日心情</p>
+                </div>
+                
+                <div class="bg-white shadow-sm border border-neutral-100 rounded-xl p-4 flex flex-col items-center justify-center">
+                  <div class="w-12 h-12 rounded-full bg-secondary-100 flex items-center justify-center mb-2">
+                    <span class="material-icons-round text-secondary-500">forum</span>
+                  </div>
+                  <h4 class="text-sm font-medium text-neutral-800">心灵社区</h4>
+                  <p class="text-xs text-neutral-500">分享与倾听</p>
+                </div>
+              </div>
+              
+              <!-- 每日成长建议 -->
+              <h3 class="text-sm font-medium text-neutral-500 mb-3">每日建议</h3>
+              <div class="bg-white shadow-sm border border-neutral-100 rounded-xl p-4 mb-4">
+                <div class="flex items-center mb-3">
+                  <span class="material-icons-round text-primary-500 mr-2">tips_and_updates</span>
+                  <h4 class="font-medium text-neutral-800">今日成长建议</h4>
+                </div>
+                <p class="text-sm text-neutral-600 mb-3">试着每天留出10分钟的时间进行深呼吸冥想，这有助于缓解压力和提高专注力。</p>
+                <div class="flex justify-between">
+                  <button class="text-primary-500 text-sm bg-primary-50 py-1 px-3 rounded-full">
+                    了解更多
+                  </button>
+                  <button class="text-neutral-400 text-sm">
+                    稍后提醒
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 底部导航 -->
+            <div class="bg-white border-t border-neutral-100 px-6 py-3 flex justify-around items-center">
+              <a href="#" class="flex flex-col items-center text-primary-500">
+                <span class="material-icons-round">home</span>
+                <span class="text-xs mt-1">首页</span>
+              </a>
+              <a href="#" class="flex flex-col items-center text-neutral-400">
+                <span class="material-icons-round">chat</span>
+                <span class="text-xs mt-1">聊天</span>
+              </a>
+              <a href="#" class="flex flex-col items-center text-neutral-400">
+                <span class="material-icons-round">explore</span>
+                <span class="text-xs mt-1">发现</span>
+              </a>
+              <a href="#" class="flex flex-col items-center text-neutral-400">
+                <span class="material-icons-round">person</span>
+                <span class="text-xs mt-1">我的</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 聊天界面 -->
+        <div class="w-80 flex-shrink-0 rounded-3xl overflow-hidden shadow-xl bg-white relative flex flex-col screen-container border border-gray-200">
+          <div class="h-full w-full flex flex-col">
+            <!-- 顶部导航 -->
+            <div class="p-6 flex items-center bg-white shadow-sm">
+              <button class="p-2 rounded-full mr-2">
+                <span class="material-icons-round text-neutral-700">arrow_back</span>
+              </button>
+              <div class="flex items-center flex-grow">
+                <div class="w-10 h-10 rounded-full bg-primary-100 overflow-hidden mr-3 flex-shrink-0">
+                  <img src="https://images.unsplash.com/photo-1608889476561-6242cfdbf622?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover">
+                </div>
+                <div>
+                  <h2 class="text-base font-medium text-neutral-800">小蓝</h2>
+                  <p class="text-xs text-neutral-500">在线</p>
+                </div>
+              </div>
+              <button class="p-2 rounded-full">
+                <span class="material-icons-round text-neutral-500">more_vert</span>
+              </button>
+            </div>
+            
+            <!-- 聊天内容区域 -->
+            <div class="flex-grow p-4 bg-neutral-50 overflow-hidden">
+              <div class="flex flex-col space-y-4">
+                <!-- 时间分隔 -->
+                <div class="flex justify-center">
+                  <span class="text-xs bg-neutral-200 text-neutral-600 px-3 py-1 rounded-full">今天 14:35</span>
+                </div>
+                
+                <!-- 对方消息 -->
+                <div class="flex items-end">
+                  <div class="w-8 h-8 rounded-full bg-primary-100 overflow-hidden mr-2 flex-shrink-0">
+                    <img src="https://images.unsplash.com/photo-1608889476561-6242cfdbf622?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover">
+                  </div>
+                  <div class="max-w-[70%] bg-white rounded-2xl rounded-bl-none p-3 shadow-sm">
+                    <p class="text-sm text-neutral-800">你好，安妮！今天过得怎么样？</p>
+                  </div>
+                </div>
+                
+                <!-- 我的消息 -->
+                <div class="flex items-end justify-end">
+                  <div class="max-w-[70%] bg-primary-500 rounded-2xl rounded-br-none p-3 shadow-sm">
+                    <p class="text-sm text-white">嗨，小蓝！今天感觉有点累，工作上遇到了一些问题。</p>
+                  </div>
+                </div>
+                
+                <!-- 对方消息 -->
+                <div class="flex items-end">
+                  <div class="w-8 h-8 rounded-full bg-primary-100 overflow-hidden mr-2 flex-shrink-0">
+                    <img src="https://images.unsplash.com/photo-1608889476561-6242cfdbf622?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover">
+                  </div>
+                  <div class="max-w-[70%] bg-white rounded-2xl rounded-bl-none p-3 shadow-sm">
+                    <p class="text-sm text-neutral-800">我能理解你的感受。能和我分享一下具体是什么问题吗？或许我可以给你一些建议。</p>
+                  </div>
+                </div>
+                
+                <!-- 我的消息 -->
+                <div class="flex items-end justify-end">
+                  <div class="max-w-[70%] bg-primary-500 rounded-2xl rounded-br-none p-3 shadow-sm">
+                    <p class="text-sm text-white">是项目的截止日期太紧张了，我有点担心无法按时完成。</p>
+                  </div>
+                </div>
+                
+                <!-- 对方消息 -->
+                <div class="flex items-end">
+                  <div class="w-8 h-8 rounded-full bg-primary-100 overflow-hidden mr-2 flex-shrink-0">
+                    <img src="https://images.unsplash.com/photo-1608889476561-6242cfdbf622?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover">
+                  </div>
+                  <div class="max-w-[70%] bg-white rounded-2xl rounded-bl-none p-3 shadow-sm">
+                    <p class="text-sm text-neutral-800">截止日期带来的压力确实会让人焦虑。你可以尝试将任务分解成小块，一步一步地完成，这样可能会感觉更容易管理。</p>
+                  </div>
+                </div>
+                
+                <!-- 对方消息 -->
+                <div class="flex items-end">
+                  <div class="w-8 h-8 rounded-full bg-primary-100 overflow-hidden mr-2 flex-shrink-0">
+                    <img src="https://images.unsplash.com/photo-1608889476561-6242cfdbf622?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover">
+                  </div>
+                  <div class="max-w-[70%] bg-white rounded-2xl rounded-bl-none p-3 shadow-sm">
+                    <p class="text-sm text-neutral-800">另外，你也可以尝试做几次深呼吸来缓解焦虑。需要我带你做一个简短的放松练习吗？</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 底部输入区域 -->
+            <div class="p-4 bg-white border-t border-neutral-100 flex items-center">
+              <button class="p-2 text-neutral-500 mr-2">
+                <span class="material-icons-round">mood</span>
+              </button>
+              <div class="flex-grow bg-neutral-100 rounded-full px-4 py-2 flex items-center">
+                <input type="text" placeholder="说点什么..." class="bg-transparent w-full focus:outline-none">
+                <button class="p-1 text-neutral-400">
+                  <span class="material-icons-round">mic</span>
+                </button>
+              </div>
+              <button class="p-2 ml-2 bg-primary-500 text-white rounded-full">
+                <span class="material-icons-round">send</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </body>
+    </html>
+    ```
+    
+   <think>用户请求我继续设计"心伴"陪伴类APP的其他页面。我已经完成了前三个主要页面（登录页面、主页/仪表盘、聊天界面），现在需要继续设计其他功能页面。根据之前的产品构思，我应该设计以下页面：
+
+1. 情绪日记/记录页面
+2. 助眠功能页面
+3. 心理测试/成长页面
+4. 社区互动页面
+5. 个人中心/设置页面
+
+我将继续保持相同的设计风格和UI规范，使用Tailwind CSS实现高质感的界面设计。</think># 继续设计"心伴"陪伴类APP的其他页面
+
+感谢您的确认，我将继续设计其余的页面。下面是情绪日记、助眠功能、社区互动和个人中心页面的设计：
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>心伴 - 你的专属情感陪伴</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              50: '#F0F7FF',
+              100: '#E0EFFF',
+              200: '#B9DEFE',
+              300: '#7CC2FD',
+              400: '#36A9FC',
+              500: '#0D99FF',
+              600: '#0077E6',
+              700: '#005BB0',
+              800: '#00407C',
+              900: '#002647'
+            },
+            secondary: {
+              50: '#FFF0FB',
+              100: '#FFE5F8',
+              200: '#FFB8EB',
+              300: '#FF8ADD',
+              400: '#FF5CCF',
+              500: '#FF2EC0',
+              600: '#FF00AC',
+              700: '#CC0089',
+              800: '#990067',
+              900: '#660044'
+            },
+            neutral: {
+              50: '#F8FAFC',
+              100: '#F1F5F9',
+              200: '#E2E8F0',
+              300: '#CBD5E1',
+              400: '#94A3B8',
+              500: '#64748B',
+              600: '#475569',
+              700: '#334155',
+              800: '#1E293B',
+              900: '#0F172A'
+            }
+          },
+          fontFamily: {
+            sans: ['Noto Sans SC', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+    }
+    .screen-container {
+      max-height: 740px;
+      overflow: hidden;
+    }
+    /* 让页面横向滚动 */
+    .screens-wrapper {
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 20px;
+    }
+    /* 隐藏滚动条但保留功能 */
+    .screens-wrapper::-webkit-scrollbar {
+      height: 0;
+      background: transparent;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 p-6 font-sans">
+  <h1 class="text-3xl text-center font-bold mb-8 text-neutral-800">心伴 - 陪伴类APP设计（第二部分）</h1>
+  
+  <div class="screens-wrapper flex gap-8 items-start justify-start pb-4">
+    
+    <!-- 情绪日记页面 -->
+    <div class="w-80 flex-shrink-0 rounded-3xl overflow-hidden shadow-xl bg-white relative flex flex-col screen-container border border-gray-200">
+      <div class="h-full w-full flex flex-col">
+        <!-- 顶部导航 -->
+        <div class="p-6 flex items-center bg-white shadow-sm">
+          <button class="p-2 rounded-full mr-2">
+            <span class="material-icons-round text-neutral-700">arrow_back</span>
+          </button>
+          <div class="flex-grow">
+            <h2 class="text-lg font-medium text-neutral-800">情绪日记</h2>
+          </div>
+          <button class="p-2 rounded-full">
+            <span class="material-icons-round text-neutral-500">history</span>
+          </button>
+        </div>
+        
+        <!-- 日记内容区域 -->
+        <div class="flex-grow p-4 bg-white overflow-hidden">
+          <div class="mb-6">
+            <div class="text-center mb-4">
+              <h3 class="text-neutral-800 font-medium">2023年6月18日</h3>
+              <p class="text-neutral-500 text-sm">星期日</p>
+            </div>
+            
+            <!-- 情绪选择器 -->
+            <div class="mb-6">
+              <p class="text-neutral-600 text-sm mb-3">今天的心情如何？</p>
+              <div class="grid grid-cols-5 gap-2">
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center mb-1 border-2 border-primary-500">
+                    <span class="material-icons-round text-primary-500">sentiment_very_satisfied</span>
+                  </div>
+                  <span class="text-xs text-primary-500">开心</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mb-1">
+                    <span class="material-icons-round text-neutral-500">sentiment_satisfied</span>
+                  </div>
+                  <span class="text-xs text-neutral-500">平静</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mb-1">
+                    <span class="material-icons-round text-neutral-500">sentiment_neutral</span>
+                  </div>
+                  <span class="text-xs text-neutral-500">一般</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mb-1">
+                    <span class="material-icons-round text-neutral-500">sentiment_dissatisfied</span>
+                  </div>
+                  <span class="text-xs text-neutral-500">低落</span>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mb-1">
+                    <span class="material-icons-round text-neutral-500">sentiment_very_dissatisfied</span>
+                  </div>
+                  <span class="text-xs text-neutral-500">糟糕</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 情绪标签 -->
+            <div class="mb-6">
+              <p class="text-neutral-600 text-sm mb-3">添加情绪标签</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-primary-100 text-primary-600 px-3 py-1 rounded-full text-sm">放松</span>
+                <span class="bg-primary-100 text-primary-600 px-3 py-1 rounded-full text-sm">满足</span>
+                <span class="bg-neutral-100 text-neutral-600 px-3 py-1 rounded-full text-sm">期待</span>
+                <span class="bg-neutral-100 text-neutral-600 px-3 py-1 rounded-full text-sm">感恩</span>
+                <span class="bg-neutral-100 text-neutral-600 px-3 py-1 rounded-full text-sm">平静</span>
+                <span class="bg-neutral-100 text-neutral-600 px-3 py-1 rounded-full text-sm">愉悦</span>
+                <button class="bg-white border border-dashed border-neutral-300 text-neutral-500 px-3 py-1 rounded-full text-sm flex items-center">
+                  <span class="material-icons-round text-sm mr-1">add</span>更多
+                </button>
+              </div>
+            </div>
+            
+            <!-- 日记输入 -->
+            <div class="mb-6">
+              <p class="text-neutral-600 text-sm mb-3">记录今天的感受</p>
+              <div class="border border-neutral-200 rounded-xl p-3">
+                <textarea 
+                  placeholder="今天发生了什么让你感到开心？" 
+                  class="w-full h-32 resize-none focus:outline-none text-neutral-700"></textarea>
+                <div class="flex justify-between items-center pt-2 border-t border-neutral-100">
+                  <div class="flex gap-2">
+                    <button class="text-neutral-400">
+                      <span class="material-icons-round">image</span>
+                    </button>
+                    <button class="text-neutral-400">
+                      <span class="material-icons-round">mic</span>
+                    </button>
+                  </div>
+                  <div class="text-xs text-neutral-400">0/500</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 提问反思 -->
+            <div class="bg-neutral-50 rounded-xl p-4 mb-6">
+              <div class="flex items-center mb-3">
+                <span class="material-icons-round text-primary-500 mr-2">psychology</span>
+                <h4 class="font-medium text-neutral-800">小蓝想问你</h4>
+              </div>
+              <p class="text-sm text-neutral-600 mb-3">回想一下，是什么特别的事情或人让你今天感到开心？这种开心的感觉给你带来了什么样的积极影响？</p>
+              <button class="text-primary-500 text-sm bg-primary-50 py-1 px-3 rounded-full">
+                记录回答
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 底部按钮 -->
+        <div class="p-4 bg-white border-t border-neutral-100 flex items-center justify-center">
+          <button class="bg-primary-500 text-white font-medium py-3 px-6 rounded-full w-full shadow-sm">
+            保存今日日记
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 助眠功能页面 -->
+    <div class="w-80 flex-shrink-0 rounded-3xl overflow-hidden shadow-xl bg-neutral-900 relative flex flex-col screen-container border border-gray-200">
+      <div class="h-full w-full flex flex-col">
+        <!-- 顶部导航 -->
+        <div class="p-6 flex items-center bg-transparent">
+          <button class="p-2 rounded-full mr-2">
+            <span class="material-icons-round text-white">arrow_back</span>
+          </button>
+          <div class="flex-grow">
+            <h2 class="text-lg font-medium text-white">助眠空间</h2>
+          </div>
+          <button class="p-2 rounded-full">
+            <span class="material-icons-round text-white/70">favorite_border</span>
+          </button>
+        </div>
+        
+        <!-- 背景渐变 -->
+        <div class="absolute inset-0 bg-gradient-to-b from-blue-900/70 to-purple-900/70 -z-10"></div>
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')] bg-cover bg-center opacity-30 -z-20"></div>
+        
+        <!-- 主内容区域 -->
+        <div class="flex-grow p-6 flex flex-col justify-between overflow-hidden">
+          <!-- 当前播放信息 -->
+          <div class="text-center mb-6">
+            <h3 class="text-white text-xl font-medium mb-2">夏夜星空</h3>
+            <p class="text-white/70 text-sm">舒缓助眠白噪音·22分钟</p>
+          </div>
+          
+          <!-- 音频可视化效果 -->
+          <div class="h-24 mx-auto w-full mb-8">
+            <div class="h-full flex items-center justify-center gap-1">
+              <div class="w-1 h-8 bg-white/30 rounded-full animate-pulse"></div>
+              <div class="w-1 h-16 bg-white/50 rounded-full animate-pulse"></div>
+              <div class="w-1 h-10 bg-white/30 rounded-full animate-pulse"></div>
+              <div class="w-1 h-20 bg-white/70 rounded-full animate-pulse"></div>
+              <div class="w-1 h-12 bg-white/40 rounded-full animate-pulse"></div>
+              <div class="w-1 h-16 bg-white/60 rounded-full animate-pulse"></div>
+              <div class="w-1 h-8 bg-white/30 rounded-full animate-pulse"></div>
+              <div class="w-1 h-14 bg-white/50 rounded-full animate-pulse"></div>
+              <div class="w-1 h-20 bg-white/70 rounded-full animate-pulse"></div>
+              <div class="w-1 h-10 bg-white/40 rounded-full animate-pulse"></div>
+              <div class="w-1 h-6 bg-white/20 rounded-full animate-pulse"></div>
+              <div class="w-1 h-18 bg-white/60 rounded-full animate-pulse"></div>
+              <div class="w-1 h-12 bg-white/40 rounded-full animate-pulse"></div>
+              <div class="w-1 h-8 bg-white/30 rounded-full animate-pulse"></div>
+              <div class="w-1 h-16 bg-white/50 rounded-full animate-pulse"></div>
+            </div>
+          </div>
+          
+          <!-- 播放控制 -->
+          <div class="mb-8">
+            <div class="mb-2">
+              <div class="relative w-full h-1 bg-white/20 rounded-full">
+                <div class="absolute left-0 top-0 h-full w-1/3 bg-secondary-400 rounded-full"></div>
+                <div class="absolute left-1/3 top-0 h-3 w-3 bg-white rounded-full -translate-y-1 -translate-x-1/2 shadow-lg"></div>
+              </div>
+              <div class="flex justify-between text-xs text-white/60 mt-2">
+                <span>07:25</span>
+                <span>22:00</span>
+              </div>
+            </div>
+            
+            <div class="flex justify-center items-center gap-6 mt-6">
+              <button class="text-white/70">
+                <span class="material-icons-round text-3xl">skip_previous</span>
+              </button>
+              <button class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center">
+                <span class="material-icons-round text-white text-4xl">pause</span>
+              </button>
+              <button class="text-white/70">
+                <span class="material-icons-round text-3xl">skip_next</span>
+              </button>
+            </div>
+          </div>
+          
+          <!-- 推荐列表 -->
+          <div>
+            <h4 class="text-white/90 text-sm font-medium mb-3">您可能还喜欢</h4>
+            <div class="space-y-3">
+              <div class="flex items-center p-3 rounded-xl bg-white/10 backdrop-blur-sm">
+                <div class="w-12 h-12 rounded-lg overflow-hidden mr-3">
+                  <img src="https://images.unsplash.com/photo-1498036882173-b41c28a8ba34?q=80&w=2564&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover" alt="雨声">
+                </div>
+                <div class="flex-grow">
+                  <h5 class="text-white font-medium">雨打芭蕉</h5>
+                  <p class="text-white/70 text-xs">自然白噪音·18分钟</p>
+                </div>
+                <button class="text-white">
+                  <span class="material-icons-round">play_circle</span>
+                </button>
+              </div>
+              
+              <div class="flex items-center p-3 rounded-xl bg-white/10 backdrop-blur-sm">
+                <div class="w-12 h-12 rounded-lg overflow-hidden mr-3">
+                  <img src="https://images.unsplash.com/photo-1500835556837-99ac94a94552?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover" alt="森林">
+                </div>
+                <div class="flex-grow">
+                  <h5 class="text-white font-medium">森林晨曦</h5>
+                  <p class="text-white/70 text-xs">自然白噪音·25分钟</p>
+                </div>
+                <button class="text-white">
+                  <span class="material-icons-round">play_circle</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 底部控制栏 -->
+        <div class="p-4 bg-white/10 backdrop-blur-lg border-t border-white/10 flex justify-around items-center">
+          <button class="flex flex-col items-center text-white">
+            <span class="material-icons-round">nightlight</span>
+            <span class="text-xs mt-1">白噪音</span>
+          </button>
+          <button class="flex flex-col items-center text-white/60">
+            <span class="material-icons-round">auto_stories</span>
+            <span class="text-xs mt-1">睡前故事</span>
+          </button>
+          <button class="flex flex-col items-center text-white/60">
+            <span class="material-icons-round">self_improvement</span>
+            <span class="text-xs mt-1">冥想引导</span>
+          </button>
+          <button class="flex flex-col items-center text-white/60">
+            <span class="material-icons-round">timer</span>
+            <span class="text-xs mt-1">定时关闭</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 社区互动页面 -->
+    <div class="w-80 flex-shrink-0 rounded-3xl overflow-hidden shadow-xl bg-white relative flex flex-col screen-container border border-gray-200">
+      <div class="h-full w-full flex flex-col">
+        <!-- 顶部导航 -->
+        <div class="p-6 flex items-center justify-between bg-white shadow-sm">
+          <h2 class="text-lg font-medium text-neutral-800">心灵社区</h2>
+          <div class="flex items-center gap-2">
+            <button class="p-2 rounded-full bg-neutral-100">
+              <span class="material-icons-round text-neutral-500">search</span>
+            </button>
+            <button class="p-2 rounded-full bg-neutral-100">
+              <span class="material-icons-round text-neutral-500">notifications</span>
+            </button>
+          </div>
+        </div>
+        
+        <!-- 话题分类 -->
+        <div class="px-4 py-3 border-b border-neutral-100 overflow-x-auto">
+          <div class="flex gap-2 whitespace-nowrap">
+            <button class="bg-primary-500 text-white px-4 py-1.5 rounded-full text-sm">全部</button>
+            <button class="bg-neutral-100 text-neutral-600 px-4 py-1.5 rounded-full text-sm">情绪管理</button>
+            <button class="bg-neutral-100 text-neutral-600 px-4 py-1.5 rounded-full text-sm">心理健康</button>
+            <button class="bg-neutral-100 text-neutral-600 px-4 py-1.5 rounded-full text-sm">人际关系</button>
+            <button class="bg-neutral-100 text-neutral-600 px-4 py-1.5 rounded-full text-sm">倾诉树洞</button>
+          </div>
+        </div>
+        
+        <!-- 社区内容 -->
+        <div class="flex-grow overflow-y-hidden p-4 space-y-6">
+          <!-- 推荐卡片 -->
+          <div class="bg-gradient-to-r from-primary-100 to-secondary-100 rounded-xl p-4">
+            <div class="flex items-center mb-2">
+              <span class="material-icons-round text-primary-500 mr-1">stars</span>
+              <h3 class="text-sm font-medium text-neutral-800">诚邀参与</h3>
+            </div>
+            <h4 class="text-base font-medium text-neutral-800 mb-2">「我的减压小习惯」话题征集</h4>
+            <p class="text-sm text-neutral-600 mb-3">分享你的减压方式，帮助更多人找到适合自己的减压方法，一起拥有更健康的心理状态。</p>
+            <div class="flex justify-between items-center">
+              <div class="flex items-center text-xs text-neutral-500">
+                <span class="material-icons-round text-sm mr-1">person</span>
+                156人参与
+              </div>
+              <button class="bg-white text-primary-500 text-sm py-1 px-3 rounded-full shadow-sm">
+                立即参与
+              </button>
+            </div>
+          </div>
+          
+          <!-- 帖子列表 -->
+          <div class="space-y-5">
+            <!-- 帖子1 -->
+            <div class="bg-white border border-neutral-100 rounded-xl p-4 shadow-sm">
+              <div class="flex items-start mb-3">
+                <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                  <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1361&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="用户头像" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-grow">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <h4 class="font-medium text-neutral-800">林小月</h4>
+                      <p class="text-xs text-neutral-500">3小时前</p>
+                    </div>
+                    <button class="text-neutral-400">
+                      <span class="material-icons-round">more_horiz</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <p class="text-sm text-neutral-700 mb-3">最近工作压力特别大，总是无法入睡，尝试了很多方法都没有效果。今天用了心伴的助眠白噪音，居然睡了一个好觉！推荐给同样有失眠困扰的朋友们 💯</p>
+              
+              <div class="bg-neutral-50 rounded-lg p-3 mb-3 text-sm text-neutral-600">
+                <span class="font-medium text-primary-500">#我的减压小习惯#</span> 白噪音助眠、晚上冥想15分钟、深呼吸练习
+              </div>
+              
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                  <div class="flex items-center">
+                    <span class="material-icons-round text-red-500 text-sm">favorite</span>
+                    <span class="text-xs text-neutral-500 ml-1">34</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="material-icons-round text-neutral-400 text-sm">chat_bubble_outline</span>
+                    <span class="text-xs text-neutral-500 ml-1">12</span>
+                  </div>
+                </div>
+                <button class="text-neutral-400">
+                  <span class="material-icons-round text-sm">share</span>
+                </button>
+              </div>
+            </div>
+            
+            <!-- 帖子2 -->
+            <div class="bg-white border border-neutral-100 rounded-xl p-4 shadow-sm">
+              <div class="flex items-start mb-3">
+                <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                  <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="用户头像" class="w-full h-full object-cover">
+                </div>
+                <div class="flex-grow">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <h4 class="font-medium text-neutral-800">王小明</h4>
+                      <p class="text-xs text-neutral-500">昨天 21:34</p>
+                    </div>
+                    <button class="text-neutral-400">
+                      <span class="material-icons-round">more_horiz</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <p class="text-sm text-neutral-700 mb-3">有没有人和我一样，工作中总是担心自己做不好而感到焦虑？我尝试了情绪日记记录，慢慢发现自己的焦虑模式，现在能更好地控制这种情绪了。大家有什么缓解工作焦虑的好方法吗？</p>
+              
+              <div class="flex flex-wrap gap-2 mb-3">
+                <span class="bg-neutral-100 text-neutral-600 px-3 py-1 rounded-full text-xs">#工作压力</span>
+                <span class="bg-neutral-100 text-neutral-600 px-3 py-1 rounded-full text-xs">#焦虑管理</span>
+                <span class="bg-neutral-100 text-neutral-600 px-3 py-1 rounded-full text-xs">#情绪日记</span>
+              </div>
+              
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-4">
+                  <div class="flex items-center">
+                    <span class="material-icons-round text-neutral-400 text-sm">favorite_border</span>
+                    <span class="text-xs text-neutral-500 ml-1">28</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="material-icons-round text-neutral-400 text-sm">chat_bubble_outline</span>
+                    <span class="text-xs text-neutral-500 ml-1">21</span>
+                  </div>
+                </div>
+                <button class="text-neutral-400">
+                  <span class="material-icons-round text-sm">share</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 底部导航 -->
+        <div class="bg-white border-t border-neutral-100 px-6 py-3 flex justify-around items-center">
+          <a href="#" class="flex flex-col items-center text-neutral-400">
+            <span class="material-icons-round">home</span>
+            <span class="text-xs mt-1">首页</span>
+          </a>
+          <a href="#" class="flex flex-col items-center text-neutral-400">
+            <span class="material-icons-round">chat</span>
+            <span class="text-xs mt-1">聊天</span>
+          </a>
+          <a href="#" class="flex flex-col items-center text-primary-500">
+            <span class="material-icons-round">explore</span>
+            <span class="text-xs mt-1">发现</span>
+          </a>
+          <a href="#" class="flex flex-col items-center text-neutral-400">
+            <span class="material-icons-round">person</span>
+            <span class="text-xs mt-1">我的</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 个人中心页面 -->
+    <div class="w-80 flex-shrink-0 rounded-3xl overflow-hidden shadow-xl bg-white relative flex flex-col screen-container border border-gray-200">
+      <div class="h-full w-full flex flex-col">
+        <!-- 顶部个人信息 -->
+        <div class="bg-gradient-to-r from-primary-500 to-primary-600 p-6">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-medium text-white">个人中心</h2>
+            <div class="flex gap-2">
+              <button class="p-2 rounded-full text-white">
+                <span class="material-icons-round">settings</span>
+              </button>
+            </div>
+          </div>
+          
+          <div class="flex items-center">
+            <div class="w-16 h-16 rounded-full bg-white/10 overflow-hidden mr-4 border-2 border-white/70">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <h3 class="text-lg font-medium text-white">安妮</h3>
+              <p class="text-white/70 text-sm">沉浸式陪伴，遇见更好的自己</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 情绪统计数据 -->
+        <div class="px-6 py-4">
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-sm font-medium text-neutral-800">本周情绪统计</h3>
+            <button class="text-xs text-primary-500">查看详情</button>
+          </div>
+          
+          <div class="bg-white border border-neutral-100 rounded-xl p-4 shadow-sm">
+            <div class="flex justify-between items-center mb-4">
+              <div class="text-center">
+                <div class="text-lg font-medium text-primary-500">87%</div>
+                <div class="text-xs text-neutral-500">积极情绪</div>
+              </div>
+              <div class="h-10 w-px bg-neutral-200"></div>
+              <div class="text-center">
+                <div class="text-lg font-medium text-neutral-500">10%</div>
+                <div class="text-xs text-neutral-500">中性情绪</div>
+              </div>
+              <div class="h-10 w-px bg-neutral-200"></div>
+              <div class="text-center">
+                <div class="text-lg font-medium text-neutral-500">3%</div>
+                <div class="text-xs text-neutral-500">消极情绪</div>
+              </div>
+            </div>
+            
+            <div class="h-3 bg-neutral-100 rounded-full overflow-hidden">
+              <div class="flex h-full">
+                <div class="bg-primary-500 w-[87%]"></div>
+                <div class="bg-neutral-400 w-[10%]"></div>
+                <div class="bg-neutral-600 w-[3%]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 陪伴伙伴 -->
+        <!-- 陪伴伙伴卡片区域 -->
+        <div class="px-6 py-2">
+          <!-- 标题栏 -->
+          <div class="flex justify-between items-center mb-3">
+            <h3 class="text-sm font-medium text-neutral-800">我的伙伴</h3>
+            <button class="text-xs text-primary-500">管理</button>
+          </div>
+          
+          <!-- 伙伴信息卡片 -->
+          <div class="flex items-center bg-white border border-neutral-100 rounded-xl p-4 shadow-sm">
+            <!-- 头像区域 -->
+            <div class="w-14 h-14 rounded-full bg-primary-100 overflow-hidden mr-3 flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1608889476561-6242cfdbf622?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="w-full h-full object-cover">
+            </div>
+            <!-- 伙伴详细信息 -->
+            <div class="flex-grow">
+              <!-- 名称和等级 -->
+              <div class="flex justify-between items-center mb-1">
+                <h3 class="font-medium text-neutral-800">小蓝</h3>
+                <span class="bg-primary-100 text-primary-500 text-xs px-2 py-0.5 rounded-full">Lv.5</span>
+              </div>
+              <!-- 陪伴时长和亲密度 -->
+              <div class="flex justify-between items-center">
+                <div class="text-xs text-neutral-500">陪伴时长: 28天</div>
+                <div class="text-xs text-primary-500">亲密度: 72%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 功能菜单 -->
+        <div class="px-6 py-4 flex-grow">
+          <h3 class="text-sm font-medium text-neutral-800 mb-3">常用功能</h3>
+          
+          <div class="space-y-3">
+            <div class="flex items-center p-3 bg-white border border-neutral-100 rounded-xl shadow-sm">
+              <div class="w-8 h-8 rounded-full bg-primary-100 overflow-hidden mr-3 flex-shrink-0">
+ 

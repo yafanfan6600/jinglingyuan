@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>岑寂 | MBTI水晶能量订制</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        fontFamily: {
+          'sans': ['Noto Serif SC', 'serif'],
+          'mono': ['Space Mono', 'monospace'],
+        },
+        extend: {
+          colors: {
+            'ink': {
+              100: '#F5F5F0',
+              200: '#E6E6E1', 
+              300: '#D8D8D0',
+              400: '#B3B3A8',
+              500: '#808073',
+              600: '#5C5C52',
+              700: '#3B3B35',
+              800: '#24241F',
+              900: '#121210'
+            },
+            'accent': {
+              100: '#F2EFEA',
+              300: '#E6D3BF',
+              500: '#C8A684',
+              700: '#9C7454',
+              900: '#573D28'
+            }
+          },
+          animation: {
+            'float': 'float 8s ease-in-out infinite',
+            'float-delay': 'float 8s ease-in-out 1s infinite',
+            'float-delay-2': 'float 8s ease-in-out 2s infinite',
+            'rotate-slow': 'rotate 20s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-30px)' },
+            },
+            rotate: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Noto Serif SC', serif;
+      background-color: #F5F5F0;
+      color: #24241F;
+    }
+    .screen {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-container {
+      display: flex;
+      overflow-x: scroll;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      height: 100vh;
+    }
+    .page-container::-webkit-scrollbar {
+      display: none;
+    }
+    .page {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      height: 100vh;
+      position: relative;
+    }
+    .shape-1 {
+      clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    }
+    .shape-2 {
+      clip-path: circle(50% at 50% 50%);
+    }
+    .shape-3 {
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+    .shape-4 {
+      clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
+    }
+    .typography-experimental {
+      letter-spacing: 0.2em;
+      line-height: 1.8;
+    }
+    .horizontal-text {
+      writing-mode: vertical-lr;
+      text-orientation: upright;
+    }
+    .mbti-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .crystal-orbit {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    .crystal-orbit-item {
+      position: absolute;
+      transform-origin: center center;
+    }
+    .form-control {
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+      background-color: transparent;
+      padding-left: 0;
+      padding-right: 0;
+    }
+    /* 创建一个自定义的选择框 */
+    .custom-select {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+    .custom-select select {
+      appearance: none;
+      width: 100%;
+      padding-right: 30px;
+    }
+    .custom-select::after {
+      content: "";
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid currentColor;
+      pointer-events: none;
+    }
+    /* 自定义鼠标样式 */
+    #custom-cursor {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: transparent;
+      border: 1px solid #24241F;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9999;
+      transition: width 0.2s, height 0.2s, background-color 0.2s;
+      mix-blend-mode: difference;
+    }
+    
+    /* 实现转盘效果的CSS */
+    .mbti-wheel {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      margin: 0 auto;
+    }
+    .mbti-segment {
+      position: absolute;
+      width: 100px;
+      height: 40px;
+      top: 50%;
+      left: 50%;
+      transform-origin: 0 50%;
+    }
+  </style>
+</head>
+<body class="antialiased">
+  <div id="custom-cursor"></div>
+  
+  <div class="page-container">
+    <!-- 欢迎页 -->
+    <section class="page bg-ink-100 flex flex-col justify-between">
+      <header class="p-8 flex justify-between items-center">
+        <h1 class="text-2xl font-light tracking-widest">岑 寂</h1>
+        <div class="flex gap-8 items-center">
+          <span class="text-sm tracking-widest">MBTI</span>
+          <span class="text-sm tracking-widest">水晶能量</span>
+          <span class="text-sm tracking-widest">观星术</span>
+        </div>
+      </header>
+      
+      <div class="flex-grow flex flex-col items-center justify-center p-8 relative">
+        <div class="absolute w-72 h-72 shape-1 bg-ink-200 opacity-40 animate-rotate-slow"></div>
+        <div class="absolute w-64 h-64 shape-3 bg-accent-300 opacity-30 rotate-45 animate-float"></div>
+        <div class="absolute w-52 h-52 shape-2 bg-ink-300 opacity-20 animate-float-delay"></div>
+        
+        <h2 class="text-5xl font-extralight tracking-[0.5em] mb-12 z-10">数字能量</h2>
+        <p class="text-xl font-light tracking-wider mb-16 max-w-lg text-center mx-auto z-10">探索你的MBTI与出生日期所蕴含的能量密码，定制专属于你的水晶手串</p>
+        
+        <a href="#explore" class="border border-ink-800 px-12 py-3 text-ink-800 hover:bg-ink-800 hover:text-ink-100 transition duration-500 tracking-widest z-10">
+          开 始 探 索
+        </a>
+      </div>
+      
+      <footer class="p-8 flex justify-between items-center text-xs text-ink-600">
+        <span>© 2023</span>
+        <span>水晶定制 · 内观 · 平衡</span>
+      </footer>
+    </section>
+    
+    <!-- 选择页 -->
+    <section id="explore" class="page bg-ink-100 flex flex-col">
+      <header class="p-8 flex justify-between items-center">
+        <h1 class="text-2xl font-light tracking-widest">岑 寂</h1>
+        <div class="flex gap-8 items-center">
+          <span class="text-sm tracking-widest">MBTI</span>
+          <span class="text-sm tracking-widest">水晶能量</span>
+          <span class="text-sm tracking-widest">观星术</span>
+        </div>
+      </header>
+      
+      <div class="flex-grow flex">
+        <!-- 左侧 -->
+        <div class="w-1/2 p-12 flex flex-col justify-center">
+          <span class="text-xs tracking-widest text-ink-500 mb-6">01 / 选择你的MBTI类型</span>
+          <h2 class="text-4xl font-light tracking-widest mb-10">性格蓝图</h2>
+          <p class="text-ink-600 leading-relaxed mb-12 max-w-md">
+            每个MBTI类型都与特定的能量频率相连，它们影响着我们如何感知世界、处理信息以及做出决策。选择你的类型，开始一段自我认知之旅。
+          </p>
+          
+          <div class="mbti-grid mb-12">
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">INTJ</div>
+              <div class="text-xs text-ink-500">建筑师</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">INTP</div>
+              <div class="text-xs text-ink-500">逻辑学家</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">ENTJ</div>
+              <div class="text-xs text-ink-500">指挥官</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">ENTP</div>
+              <div class="text-xs text-ink-500">辩论家</div>
+            </div>
+            <div class="bg-ink-200 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-800 pb-1 mb-1">INFJ</div>
+              <div class="text-xs text-ink-500">提倡者</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">INFP</div>
+              <div class="text-xs text-ink-500">调停者</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">ENFJ</div>
+              <div class="text-xs text-ink-500">主人公</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">ENFP</div>
+              <div class="text-xs text-ink-500">活动家</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">ISTJ</div>
+              <div class="text-xs text-ink-500">物流师</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">ISFJ</div>
+              <div class="text-xs text-ink-500">守卫者</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">ESTJ</div>
+              <div class="text-xs text-ink-500">总经理</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">ESFJ</div>
+              <div class="text-xs text-ink-500">执政官</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">ISTP</div>
+              <div class="text-xs text-ink-500">鉴赏家</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">ISFP</div>
+              <div class="text-xs text-ink-500">冒险家</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">ESTP</div>
+              <div class="text-xs text-ink-500">企业家</div>
+            </div>
+            <div class="hover:bg-accent-100 p-3 cursor-pointer transition duration-300">
+              <div class="border-b border-ink-300 pb-1 mb-1">ESFP</div>
+              <div class="text-xs text-ink-500">表演者</div>
+            </div>
+          </div>
+          
+          <a href="#birthdate" class="border border-ink-800 px-12 py-3 text-ink-800 hover:bg-ink-800 hover:text-ink-100 transition duration-500 tracking-widest self-start">
+            下一步
+          </a>
+        </div>
+        
+        <!-- 右侧 -->
+        <div class="w-1/2 flex items-center justify-center relative overflow-hidden">
+          <div class="absolute inset-0 shape-4 bg-accent-300 opacity-30 m-auto w-1/2 h-1/2 animate-rotate-slow"></div>
+          <div class="absolute inset-0 shape-2 bg-ink-200 opacity-40 m-auto w-3/4 h-3/4 animate-float-delay-2"></div>
+          
+          <div class="text-center z-10">
+            <h3 class="text-3xl font-light tracking-widest mb-6">INFJ</h3>
+            <p class="text-xl text-ink-600 mb-4">提倡者</p>
+            <p class="max-w-xs mx-auto text-ink-500">
+              安静而神秘，富有同情心与洞察力。他们善于看到事物更深层次的意义，能够找到解决问题的创新途径。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 生辰日期页 -->
+    <section id="birthdate" class="page bg-ink-100 flex flex-col">
+      <header class="p-8 flex justify-between items-center">
+        <h1 class="text-2xl font-light tracking-widest">岑 寂</h1>
+        <div class="flex gap-8 items-center">
+          <span class="text-sm tracking-widest">MBTI</span>
+          <span class="text-sm tracking-widest">水晶能量</span>
+          <span class="text-sm tracking-widest">观星术</span>
+        </div>
+      </header>
+      
+      <div class="flex-grow flex">
+        <!-- 左侧 -->
+        <div class="w-1/2 flex items-center justify-center relative overflow-hidden">
+          <span class="absolute horizontal-text text-9xl font-thin text-ink-200 opacity-30 top-1/2 -translate-y-1/2 left-12">天体</span>
+          <span class="absolute horizontal-text text-9xl font-thin text-ink-200 opacity-30 top-1/2 -translate-y-1/2 right-12">能量</span>
+          
+          <div class="crystal-orbit animate-rotate-slow">
+            <div class="crystal-orbit-item top-0 left-1/2 -translate-x-1/2">
+              <div class="w-4 h-4 rounded-full bg-accent-300"></div>
+            </div>
+            <div class="crystal-orbit-item top-1/4 right-1/4">
+              <div class="w-3 h-3 rounded-full bg-accent-500"></div>
+            </div>
+            <div class="crystal-orbit-item bottom-0 left-1/2 -translate-x-1/2">
+              <div class="w-5 h-5 rounded-full bg-accent-700"></div>
+            </div>
+            <div class="crystal-orbit-item top-1/4 left-1/4">
+              <div class="w-3 h-3 rounded-full bg-accent-500"></div>
+            </div>
+          </div>
+          
+          <div class="w-64 h-64 shape-2 bg-accent-300 opacity-40 relative animate-float">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span class="text-6xl font-thin">水</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 右侧 -->
+        <div class="w-1/2 p-12 flex flex-col justify-center">
+          <span class="text-xs tracking-widest text-ink-500 mb-6">02 / 输入你的生辰信息</span>
+          <h2 class="text-4xl font-light tracking-widest mb-10">天体韵律</h2>
+          <p class="text-ink-600 leading-relaxed mb-12 max-w-md">
+            你降生的那一刻，宇宙中的星辰以特定方式排列，这种排列影响着你的能量频率。通过结合MBTI与生辰信息，我们能更精准地匹配适合你的水晶能量。
+          </p>
+          
+          <div class="space-y-10 mb-12 max-w-md">
+            <div>
+              <label class="block text-sm tracking-widest text-ink-600 mb-2">出生年份</label>
+              <div class="custom-select">
+                <select class="form-control border-b border-ink-300 w-full py-2 focus:outline-none focus:border-ink-600">
+                  <option value="" disabled>请选择</option>
+                  <option value="1990">1990</option>
+                  <option value="1991">1991</option>
+                  <option value="1992" selected>1992</option>
+                  <option value="1993">1993</option>
+                  <option value="1994">1994</option>
+                  <option value="1995">1995</option>
+                </select>
+              </div>
+            </div>
+            
+            <div>
+              <label class="block text-sm tracking-widest text-ink-600 mb-2">出生月份</label>
+              <div class="custom-select">
+                <select class="form-control border-b border-ink-300 w-full py-2 focus:outline-none focus:border-ink-600">
+                  <option value="" disabled>请选择</option>
+                  <option value="1">1月</option>
+                  <option value="2">2月</option>
+                  <option value="3">3月</option>
+                  <option value="4">4月</option>
+                  <option value="5">5月</option>
+                  <option value="6">6月</option>
+                  <option value="7" selected>7月</option>
+                  <option value="8">8月</option>
+                  <option value="9">9月</option>
+                  <option value="10">10月</option>
+                  <option value="11">11月</option>
+                  <option value="12">12月</option>
+                </select>
+              </div>
+            </div>
+            
+            <div>
+              <label class="block text-sm tracking-widest text-ink-600 mb-2">出生日期</label>
+              <div class="custom-select">
+                <select class="form-control border-b border-ink-300 w-full py-2 focus:outline-none focus:border-ink-600">
+                  <option value="" disabled>请选择</option>
+                  <option value="1">1日</option>
+                  <option value="2">2日</option>
+                  <option value="3">3日</option>
+                  <option value="4">4日</option>
+                  <option value="5">5日</option>
+                  <option value="6">6日</option>
+                  <option value="7">7日</option>
+                  <option value="8">8日</option>
+                  <option value="9">9日</option>
+                  <option value="10">10日</option>
+                  <option value="11">11日</option>
+                  <option value="12">12日</option>
+                  <option value="13">13日</option>
+                  <option value="14">14日</option>
+                  <option value="15" selected>15日</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="mb-12 p-4 border-l-2 border-accent-500 bg-accent-100 text-ink-600">
+            <div class="mb-1 text-lg">巨蟹座</div>
+            <div class="text-sm">元素: 水相 | 守护星: 月亮</div>
+          </div>
+          
+          <a href="#result" class="border border-ink-800 px-12 py-3 text-ink-800 hover:bg-ink-800 hover:text-ink-100 transition duration-500 tracking-widest self-start">
+            解析能量
+          </a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 结果页 -->
+    <section id="result" class="page bg-ink-800 text-ink-100 flex flex-col">
+      <header class="p-8 flex justify-between items-center">
+        <h1 class="text-2xl font-light tracking-widest">岑 寂</h1>
+        <div class="flex gap-8 items-center">
+          <span class="text-sm tracking-widest opacity-70">MBTI</span>
+          <span class="text-sm tracking-widest opacity-70">水晶能量</span>
+          <span class="text-sm tracking-widest opacity-70">观星术</span>
+        </div>
+      </header>
+      
+      <div class="flex-grow flex">
+        <!-- 左侧 -->
+        <div class="w-1/2 p-12 flex flex-col justify-center">
+          <span class="text-xs tracking-widest text-ink-300 mb-6">03 / 你的能量解析</span>
+          <h2 class="text-4xl font-light tracking-widest mb-10">能量图谱</h2>
+          
+          <div class="mb-8">
+            <div class="text-xl tracking-widest mb-2">INFJ × 巨蟹座</div>
+            <div class="text-ink-300 mb-6">提倡者 × 水相星座</div>
+            <p class="leading-relaxed text-ink-300 mb-8 max-w-md">
+              作为INFJ和巨蟹座的结合体，你拥有极强的直觉和情感洞察力。巨蟹座的水元素与INFJ的内省特质相互增强，使你天生适合深层次的心灵探索和情感连接。
+            </p>
+          </div>
+          
+          <div class="mb-12">
+            <h3 class="text-lg tracking-widest mb-6">你的专属水晶组合</h3>
+            
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="w-20 h-1 bg-accent-300 mt-3"></div>
+                <div>
+                  <div class="text-base tracking-wider mb-1">月光石</div>
+                  <p class="text-ink-300 text-sm">增强你的直觉力，促进精神成长，帮助你更深入地理解内在情感。</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-20 h-1 bg-accent-500 mt-3"></div>
+                <div>
+                  <div class="text-base tracking-wider mb-1">海蓝宝石</div>
+                  <p class="text-ink-300 text-sm">平衡情感能量，促进清晰表达，帮助你在关怀他人的同时保护自己的敏感本质。</p>
+                </div>
+              </div>
+              
+              <div class="flex items-start gap-4">
+                <div class="w-20 h-1 bg-accent-700 mt-3"></div>
+                <div>
+                  <div class="text-base tracking-wider mb-1">紫水晶</div>
+                  <p class="text-ink-300 text-sm">增强精神意识，保护敏感的情感，帮助你在深入理解他人的同时保持自己的能量场。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <a href="#customize" class="border border-ink-100 px-12 py-3 text-ink-100 hover:bg-ink-100 hover:text-ink-800 transition duration-500 tracking-widest self-start">
+            定制手串
+          </a>
+        </div>
+        
+        <!-- 右侧 -->
+        <div class="w-1/2 flex items-center justify-center relative overflow-hidden">
+          <div class="absolute shape-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-accent-300 opacity-10 animate-rotate-slow"></div>
+          <div class="absolute shape-3 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-accent-500 opacity-30 rotate-45 animate-float"></div>
+          
+          <div class="relative z-10">
+            <img src="https://images.unsplash.com/photo-1603665711638-b5f736508fab?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1400&q=80" alt="水晶组合" class="w-72 h-72 object-cover shape-2">
+            
+            <div class="absolute -bottom-8 -right-8 w-32 h-32 shape-2 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1568136112661-54a6c4c3b851?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="月光石" class="w-full h-full object-cover">
+            </div>
+            
+            <div class="absolute -top-4 -left-4 w-24 h-24 shape-2 overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1585467024499-05347315f938?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="紫水晶" class="w-full h-full object-cover">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- 定制页面 -->
+    <section id="customize" class="page bg-ink-100 flex flex-col">
+      <header class="p-8 flex justify-between items-center">
+        <h1 class="text-2xl font-light tracking-widest">岑 寂</h1>
+        <div class="flex gap-8 items-center">
+          <span class="text-sm tracking-widest">MBTI</span>
+          <span class="text-sm tracking-widest">水晶能量</span>
+          <span class="text-sm tracking-widest">观星术</span>
+        </div>
+      </header>
+      
+      <div class="flex-grow flex flex-col items-center justify-center p-12 relative">
+        <div class="absolute top-0 left-0 w-64 h-64 shape-1 bg-ink-200 opacity-40 animate-float"></div>
+        <div class="absolute bottom-0 right-0 w-72 h-72 shape-4 bg-accent-300 opacity-20 animate-float-delay"></div>
+        
+        <div class="relative z-10 text-center max-w-3xl mx-auto">
+          <h2 class="text-4xl font-light tracking-[0.5em] mb-10">定制你的能量手串</h2>
+          <p class="text-lg font-light tracking-wider mb-16 max-w-xl mx-auto">
+            基于你的INFJ性格类型和巨蟹座星象，我们将为你制作包含月光石、海蓝宝石和紫水晶的专属能量手串
+          </p>
+          
+          <div class="flex justify-center mb-16">
+            <img src="https://images.unsplash.com/photo-1611605645802-c21be743c321?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80" alt="水晶手串" class="w-96 h-64 object-cover">
+          </div>
+          
+          <a href="#" class="border border-ink-800 px-12 py-3 text-ink-800 hover:bg-ink-800 hover:text-ink-100 transition duration-500 tracking-widest inline-block">
+            确认定制
+          </a>
+        </div>
+      </div>
+      
+      <footer class="p-8 flex justify-between items-center text-xs text-ink-600">
+        <span>© 2023</span>
+        <span>水晶定制 · 内观 · 平衡</span>
+      </footer>
+    </section>
+  </div>
+  
+  <script>
+    // 自定义鼠标效果
+    document.addEventListener('DOMContentLoaded', () => {
+      const cursor = document.getElementById('custom-cursor');
+      
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+      
+      document.addEventListener('mousedown', () => {
+        cursor.style.width = '10px';
+        cursor.style.height = '10px';
+        cursor.style.backgroundColor = '#24241F';
+      });
+      
+      document.addEventListener('mouseup', () => {
+        cursor.style.width = '20px';
+        cursor.style.height = '20px';
+        cursor.style.backgroundColor = 'transparent';
+      });
+      
+      // 链接和可点击元素悬停效果
+      const clickables = document.querySelectorAll('a, button, .cursor-pointer');
+      clickables.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          cursor.style.width = '40px';
+          cursor.style.height = '40px';
+          cursor.style.border = '1px solid #C8A684';
+        });
+        
+        el.addEventListener('mouseleave', () => {
+          cursor.style.width = '20px';
+          cursor.style.height = '20px';
+          cursor.style.border = '1px solid #24241F';
+        });
+      });
+    });
+    
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html> 
